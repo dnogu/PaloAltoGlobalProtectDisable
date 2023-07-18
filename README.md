@@ -29,7 +29,7 @@ Make sure these are installed in your environment. If they're not, you can insta
 
 ```sh
 pip install httpx xmltodict
-'''
+```
 
 ## Usage
 
@@ -37,7 +37,7 @@ Once you have set up your environment and installed the dependencies, you can ru
 
 ```sh
 python3 ticket_retrieval.py
-'''
+```
 
 The script will attempt to retrieve the ticket from the server. It will print the server's response to the console. It will also return a tuple containing the retrieved ticket (or an error message) and a boolean indicating whether the request failed.
 
