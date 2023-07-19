@@ -7,7 +7,7 @@ This Python script is used to retrieve a ticket from a remote server using a spe
 The script uses the following environment variables:
 
 - `PANORAMA_API_KEY`: The API key for accessing the server.
-- `GP_TICKET`: The raw ticket number.
+- `GP_REQUEST`: The raw request number.
 - `DURATION_IN_MINUTES`: The requested duration for the ticket.
 - `portal_name`: The name of the portal to access.
 - `template_name`: The template name for the request.
