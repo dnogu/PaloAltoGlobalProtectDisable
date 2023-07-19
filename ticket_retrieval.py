@@ -53,7 +53,7 @@ def get_ticket():
         ticket_response = json.loads(json.dumps(xmltodict.parse(r.text)))['response']['result']
         disable_ticket = re.search(r"\S*$", ticket_response).group()
         request_failed = False
-
+        print(disable_ticket)
     return disable_ticket, request_failed
 
 if __name__ == "__main__":
