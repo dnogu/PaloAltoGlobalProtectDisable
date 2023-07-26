@@ -1,15 +1,14 @@
 import os
 import re
-import json
-import httpx
-import xmltodict
+import urllib3
+import xml.etree.ElementTree as ET
 
 def get_ticket():
     """
     Function to retrieve a ticket from a remote server using an API key. 
 
     Environment variables:
-    PANORAMA_API_KEY : str : the API key for accessing the server
+    PANOS_API_KEY : str : the API key for accessing the server
     GP_REQUEST : str : the raw ticket number
     DURATION_IN_MINUTES : str : the requested duration for the ticket 
     PORTAL_NAME : str : the name of the portal to access
@@ -42,15 +41,21 @@ def get_ticket():
 
     print(f'{base_url}{ticket_url}')
 
-    # Note: Suppressing SSL warnings can be dangerous. Consider providing a path to a cert file.
-    # httpx.TimeoutConfig(connect_timeout=5, read_timeout=None, write_timeout=5)
-    r = httpx.get(f'{base_url}{ticket_url}', verify=False, timeout=None)
+    urllib3.disable_warnings()
+    http = urllib3.PoolManager(
+        cert_reqs='CERT_NONE'
+    )
 
-    if 'request is invalid' in r.text:
+    r = http.request('GET', f'{base_url}{ticket_url}', retries=False)
+
+    r_data = r.data.decode()
+
+    if 'request is invalid' in r_data:
         disable_ticket = "Unable to retrieve ticket."
         request_failed = True
     else:
-        ticket_response = json.loads(json.dumps(xmltodict.parse(r.text)))['response']['result']
+        root = ET.fromstring(r_data)
+        ticket_response = root.find(".//result").text
         disable_ticket = re.search(r"\S*$", ticket_response).group()
         request_failed = False
         print(disable_ticket)
