@@ -1,8 +1,7 @@
 import os
 import re
-import json
 import urllib3
-import xmltodict
+import xml.etree.ElementTree as ET
 
 def get_ticket():
     """
@@ -55,7 +54,8 @@ def get_ticket():
         disable_ticket = "Unable to retrieve ticket."
         request_failed = True
     else:
-        ticket_response = json.loads(json.dumps(xmltodict.parse(r_data)))['response']['result']
+        root = ET.fromstring(r_data)
+        ticket_response = root.find(".//result").text
         disable_ticket = re.search(r"\S*$", ticket_response).group()
         request_failed = False
         print(disable_ticket)

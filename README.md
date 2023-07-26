@@ -6,7 +6,7 @@ This Python script is used to retrieve a ticket from a remote server using a spe
 
 The script uses the following environment variables:
 
-- `PANORAMA_API_KEY`: The API key for accessing the server.
+- `PANOS_API_KEY`: The API key for accessing the server.
 - `GP_REQUEST`: The raw request number.
 - `DURATION_IN_MINUTES`: The requested duration for the ticket.
 - `portal_name`: The name of the portal to access.
@@ -21,15 +21,8 @@ This script uses the following Python libraries:
 
 - `os`
 - `re`
-- `json`
 - `urllib3`
-- `xmltodict`
-
-Make sure these are installed in your environment. If they're not, you can install them using pip:
-
-```sh
-pip install xmltodict
-```
+- `xml.etree.ElementTree`
 
 ## Usage
 
