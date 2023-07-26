@@ -22,13 +22,13 @@ This script uses the following Python libraries:
 - `os`
 - `re`
 - `json`
-- `httpx`
+- `urllib3`
 - `xmltodict`
 
 Make sure these are installed in your environment. If they're not, you can install them using pip:
 
 ```sh
-pip install httpx xmltodict
+pip install xmltodict
 ```
 
 ## Usage
